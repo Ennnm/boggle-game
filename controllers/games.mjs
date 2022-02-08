@@ -6,7 +6,6 @@ export default function initGamesController(db) {
   const create = async (req, res) => {
     const { duration, random } = req.body;
     let { board } = req.body;
-    console.log('req.body :>> ', req.body);
 
     try {
       inputCheck.checkCreateData(duration, random, board);
@@ -31,7 +30,7 @@ export default function initGamesController(db) {
       res.status(201).send(gameData);
     } catch (e) {
       console.log('e :>> ', e);
-      res.status(400).send(e);
+      res.status(400).send({ error: e.message });
     }
 
     const reqBody = {
