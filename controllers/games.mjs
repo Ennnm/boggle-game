@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as boardFunc from '../lib/board.mjs';
 import * as inputCheck from '../lib/input-checks.mjs';
 import * as timeHandler from '../lib/time.mjs';
+import * as gameLogic from '../lib/game-logic.mjs';
 
 export default function initGamesController(db) {
   const create = async (req, res) => {
@@ -45,19 +46,21 @@ export default function initGamesController(db) {
       console.log('game :>> ', game);
 
       inputCheck.checkGame(game, token);
+      inputCheck.checkWordLen(word);
       // check if word is valid
+      const isWordInBoard = gameLogic.checkWordInBoard(game.board, word);
+      const wordPoints = gameLogic.wordScore(word);
       const { duration, board } = game;
       let { points } = game;
       // calculate the points
       points += 1;
       game.points = points;
+      // update the game in db
       await game.save({ fields: ['points'] });
       await game.reload();
 
-      const timeLeft = timeHandler.getTimeLeft(game, duration);
+      const timeLeft = timeHandler.getTimeLeft(game);
       console.log('timeLeft :>> ', timeLeft);
-
-      // update the game in db
 
       const gameData = {
         id: game.id,
@@ -71,16 +74,6 @@ export default function initGamesController(db) {
       console.log('e :>> ', e);
       res.status(400).send({ error: e.message });
     }
-
-    // return response status 200
-    // {
-    //   "id": 1,
-    //   "token": "9dda26ec7e476fb337cb158e7d31ac6c",
-    //   "duration": 12345,
-    //   "board": "A, C, E, D, L, U, G, *, E, *, H, T, G, A, F, K",
-    //   "time_left": 10000,
-    //   "points": 10
-    // }
   };
   const show = async (req, res) => {
     const { id } = req.params;
