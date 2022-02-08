@@ -28,7 +28,7 @@ export default function initGameModel(sequelize, DataTypes) {
         type: DataTypes.DATE,
       },
       updatedAt: {
-        allowNull: false,
+        allowNull:   false,
         type: DataTypes.DATE,
       },
     },
