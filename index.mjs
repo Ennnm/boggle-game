@@ -1,5 +1,5 @@
 import express from 'express';
-import cookieParser from 'cookie-parser';
+// import cookieParser from 'cookie-parser';
 import methodOverride from 'method-override';
 
 import bindRoutes from './routes.mjs';
@@ -13,7 +13,7 @@ const app = express();
 // Bind Express middleware to parse request bodies for POST requests
 app.use(express.urlencoded({ extended: false }));
 // Bind method override middleware to parse PUT and DELETE requests sent as POST requests
-app.use(methodOverride('_metho1d'));
+app.use(methodOverride('_method'));
 // Expose the files stored in the public folder
 app.use(express.static('public'));
 
