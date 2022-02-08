@@ -3,6 +3,7 @@ import * as boardFunc from '../lib/board.mjs';
 import * as inputCheck from '../lib/input-checks.mjs';
 import * as timeHandler from '../lib/time.mjs';
 import * as gameLogic from '../lib/game-logic.mjs';
+import * as readFromTxt from '../lib/read-txt.mjs';
 
 export default function initGamesController(db) {
   const create = async (req, res) => {
@@ -13,6 +14,8 @@ export default function initGamesController(db) {
       inputCheck.checkCreateData(duration, random, board);
       if (random) {
         board = boardFunc.genRandomBoardStr();
+      } else if (board === undefined) {
+        board = readFromTxt.readBoard();
       }
       // create game in db
       const newGame = await db.Game.create({
