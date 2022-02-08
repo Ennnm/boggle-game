@@ -48,6 +48,7 @@ export default function initGamesController(db) {
       inputCheck.checkGame(game, token);
       inputCheck.checkWordLen(word);
       // check if word is valid
+      const isWordInDict = gameLogic.checkWordInDict(word);
       const isWordInBoard = gameLogic.checkWordInBoard(game.board, word);
       const wordPoints = gameLogic.wordScore(word);
       const { duration, board } = game;
