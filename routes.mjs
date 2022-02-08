@@ -1,11 +1,12 @@
+import initGamesController from './controllers/games.mjs';
 import db from './models/index.mjs';
 
 // import your controllers here
 
 export default function bindRoutes(app) {
+  const gameController = initGamesController(db);
 
-  // initialize the controller functions here
-  // pass in the db for all callbacks
-
-  // define your route matchers here using app
+  app.post('/games', gameController.create);
+  app.put('/games/:id', gameController.update);
+  app.get('/games/:id', gameController.show);
 }
