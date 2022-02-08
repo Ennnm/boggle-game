@@ -46,12 +46,12 @@ export default function initGamesController(db) {
     console.log('req.body :>> ', req.body);
     try {
       const game = await db.Game.findByPk(id);
-      console.log('game :>> ', game);
 
       inputCheck.checkGame(game, token);
       inputCheck.checkWordLen(word);
       // check if word is valid
       const isWordInDict = gameLogic.checkWordInDict(word);
+      console.log('isWordInDict :>> ', isWordInDict);
       const isWordInBoard = gameLogic.checkWordInBoard(game.board, word);
       const wordPoints = gameLogic.wordScore(word);
       const { duration, board } = game;
@@ -73,7 +73,7 @@ export default function initGamesController(db) {
         board: game.board,
         time_left: timeLeft,
       };
-      res.status(200).send(game);
+      res.status(200).send(gameData);
     } catch (e) {
       console.log('e :>> ', e);
       res.status(400).send({ error: e.message });
