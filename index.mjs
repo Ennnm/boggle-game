@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import methodOverride from 'method-override';
 import cors from 'cors';
 import bindRoutes from './routes.mjs';
+import 'dotenv/config';
 // Initialise Express instance
 const app = express();
 // Set the Express view engine to expect EJS templates
