@@ -48,16 +48,12 @@ export default function initGamesController(db) {
       const game = await db.Game.findByPk(id);
 
       inputCheck.checkGame(game, token);
-      inputCheck.checkWordLen(word);
-      // check if word is valid
-      const isWordInDict = gameLogic.checkWordInDict(word);
-      console.log('isWordInDict :>> ', isWordInDict);
-      const isWordInBoard = gameLogic.checkWordInBoard(game.board, word);
-      const wordPoints = gameLogic.wordScore(word);
-      const { duration, board } = game;
+      inputCheck.wordCheck(word, game.board);
+
       let { points } = game;
-      // calculate the points
-      points += 1;
+      const wordPoints = gameLogic.wordScore(word);
+      points += wordPoints;
+
       game.points = points;
       // update the game in db
       await game.save({ fields: ['points'] });
@@ -72,6 +68,7 @@ export default function initGamesController(db) {
         duration: game.duration,
         board: game.board,
         time_left: timeLeft,
+        points,
       };
       res.status(200).send(gameData);
     } catch (e) {
