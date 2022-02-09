@@ -3,7 +3,8 @@ import allConfig from '../config/config.js';
 
 import initGameModel from './game.mjs';
 
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'production';
+// const env = process.env.NODE_ENV || 'development';
 const config = allConfig[env];
 const db = {};
 
