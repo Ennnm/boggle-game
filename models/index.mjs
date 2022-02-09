@@ -8,6 +8,7 @@ const env = process.env.NODE_ENV || 'production';
 const config = allConfig[env];
 const db = {};
 
+console.log('config :>> ', config);
 const sequelize = new Sequelize(
   config.database,
   config.username,
