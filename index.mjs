@@ -22,6 +22,6 @@ app.use(cors());
 bindRoutes(app);
 
 // Set Express to listen on the given port
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 3004;
 app.listen(PORT);
 console.log('in index.mjs PORT:', PORT);
