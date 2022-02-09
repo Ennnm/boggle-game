@@ -9,6 +9,7 @@ export default function initGamesController(db) {
   const create = async (req, res) => {
     const { duration, random } = req.body;
     let { board } = req.body;
+    console.log('req.body :>> ', req.body);
 
     try {
       inputCheck.checkCreateData(duration, random, board);
@@ -32,10 +33,12 @@ export default function initGamesController(db) {
         board,
       };
       console.log('gameData :>> ', gameData);
-      res.status(201).send(gameData);
+      const gameString = JSON.stringify(gameData);
+      console.log('gameString :>> ', gameString);
+      res.status(201).send(gameString);
     } catch (e) {
       console.log('e :>> ', e);
-      res.status(400).send({ error: e.message });
+      res.status(400).send({ message: e.message });
     }
   };
 
@@ -73,7 +76,7 @@ export default function initGamesController(db) {
       res.status(200).send(gameData);
     } catch (e) {
       console.log('e :>> ', e);
-      res.status(400).send({ error: e.message });
+      res.status(400).send({ message: e.message });
     }
   };
   const show = async (req, res) => {
@@ -95,7 +98,7 @@ export default function initGamesController(db) {
       };
       res.status(200).send(gameData);
     } catch (e) {
-      res.status(400).send({ error: e.message });
+      res.status(400).send({ message: e.message });
     }
   };
 

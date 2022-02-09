@@ -1,9 +1,8 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import methodOverride from 'method-override';
-
+import cors from 'cors';
 import bindRoutes from './routes.mjs';
-
 // Initialise Express instance
 const app = express();
 // Set the Express view engine to expect EJS templates
@@ -17,7 +16,7 @@ app.use(express.json());
 app.use(methodOverride('_method'));
 // Expose the files stored in the public folder
 app.use(express.static('public'));
-
+app.use(cors());
 // Bind route definitions to the Express application
 bindRoutes(app);
 
