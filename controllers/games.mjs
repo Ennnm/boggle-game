@@ -9,7 +9,7 @@ export default function initGamesController(db) {
   const create = async (req, res) => {
     const { duration, random } = req.body;
     let { board } = req.body;
-    console.log('req.body :>> ', req.body);
+    console.log('req.body in create:>> ', req.body);
 
     try {
       inputCheck.checkCreateData(duration, random, board);
@@ -43,10 +43,11 @@ export default function initGamesController(db) {
   };
 
   const update = async (req, res) => {
-    const { id } = req.params;
+    let { id } = req.params;
     const { token, word } = req.body;
+    id = Number(id);
     console.log('id :>> ', id);
-    console.log('req.body :>> ', req.body);
+    console.log('req.body in update:>> ', req.body);
     try {
       const game = await db.Game.findByPk(id);
 
@@ -73,6 +74,7 @@ export default function initGamesController(db) {
         time_left: timeLeft,
         points,
       };
+      console.log('gameData in update :>> ', gameData);
       res.status(200).send(gameData);
     } catch (e) {
       console.log('e :>> ', e);
@@ -80,13 +82,18 @@ export default function initGamesController(db) {
     }
   };
   const show = async (req, res) => {
-    const { id } = req.params;
+    let { id } = req.params;
+    id = Number(id);
+    console.log('in show id :>> ', id);
+
     try {
       const game = await db.Game.findByPk(id);
       if (game === null) {
         throw new Error(`Game ${id} does not exist`);
       }
-      const { token, duration, board, points } = game;
+      const {
+        token, duration, board, points,
+      } = game;
       const timeLeft = timeHandler.getTimeLeft(game);
       const gameData = {
         id,
@@ -98,7 +105,7 @@ export default function initGamesController(db) {
       };
       res.status(200).send(gameData);
     } catch (e) {
-      res.status(400).send({ message: e.message });
+      res.status(404).send({ message: e.message });
     }
   };
 
