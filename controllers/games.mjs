@@ -32,10 +32,7 @@ export default function initGamesController(db) {
         duration,
         board,
       };
-      console.log('gameData :>> ', gameData);
-      const gameString = JSON.stringify(gameData);
-      console.log('gameString :>> ', gameString);
-      res.status(201).send(gameString);
+      res.status(201).send(gameData);
     } catch (e) {
       console.log('e :>> ', e);
       res.status(400).send({ message: e.message });
@@ -64,7 +61,6 @@ export default function initGamesController(db) {
       await game.reload();
 
       const timeLeft = timeHandler.getTimeLeft(game);
-      console.log('timeLeft :>> ', timeLeft);
 
       const gameData = {
         id: game.id,
@@ -91,9 +87,7 @@ export default function initGamesController(db) {
       if (game === null) {
         throw new Error(`Game ${id} does not exist`);
       }
-      const {
-        token, duration, board, points,
-      } = game;
+      const { token, duration, board, points } = game;
       const timeLeft = timeHandler.getTimeLeft(game);
       const gameData = {
         id,
