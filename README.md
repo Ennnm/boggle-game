@@ -34,7 +34,7 @@ Some sample words from this board are ace, dug, eight, hole, huge, hug, tide.
 
 <p align="right">(<a href="#top">back to top</a>)</p>	
 
-### Built With
+## Built With
 
 **Backend**
 
@@ -133,7 +133,7 @@ This is an example of how to list things you need to use the software and how to
 
 Deployed on http://enfrenemy.xyz/
 
-#### Create the game
+### Create the game
 
 ```http
 POST /games
@@ -167,7 +167,7 @@ POST /games
 
 - Error (400) with message if duration or random is not in request body.
 
-#### Play the game
+### Play the game
 
 ```http
 PUT /games/:id
@@ -208,7 +208,7 @@ PUT /games/:id
   - word is not in dictionary
   - word is not in board
 
-#### Show the game
+### Show the game
 
 ```http	
 GET /games/:id
