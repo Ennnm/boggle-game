@@ -203,8 +203,12 @@ PUT /games/:id
 ```
 
 - Error (400) with message if:
+
+  - game not found
+
   - game token doesn't match game id
-  - word length <3
+  - game has already ended
+  - word length < 3
   - word is not in dictionary
   - word is not in board
 
